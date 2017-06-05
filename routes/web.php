@@ -17,6 +17,7 @@ Route::get('/donations', 'DonationController@index');
 Route::get('/donations/add', 'DonationController@add');
 Route::post('/donations/add', 'DonationController@save');
 Route::get('/donations/show/{id}', 'DonationController@show');
+Route::get('/online-donations', 'DonationController@showOnlineDonations');
 
 Route::get('/needs', 'NeedsController@index');
 Route::get('/needs/add', 'NeedsController@add');
@@ -25,3 +26,12 @@ Route::get('/needs/show/{id}', 'NeedsController@show');
 
 Route::get('/emergency-contacts', 'HomeController@emergency');
 Route::get('/twitter-feed', 'FeedsController@index');
+
+Route::get('/entry/{type}/{id}', 'EntryController@view');
+
+Route::get('/locale/{locale}', function($locale){
+     App::setLocale($locale);
+     session(['locale' => $locale]);
+     return redirect('/');
+});
+Route::post('/search-donations-needs', 'HomeController@searchDonationsOrNeeds');
